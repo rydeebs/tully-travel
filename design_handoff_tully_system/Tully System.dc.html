@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  body { margin: 0; background: #FFFFFF; color: #1A1A1A; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #1A1A1A; }
+  a:hover { color: #B08D57; }
+</style>
+</helmet>
+
+<div style="font-family: 'Instrument Sans', sans-serif; background: #FFFFFF; color: #1A1A1A; padding: 0 40px;">
+
+  <header style="max-width: 1200px; margin: 0 auto; padding: 96px 0 64px; display: flex; flex-direction: column; gap: 28px;">
+    <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #B08D57;">Design System — v1.0</div>
+    <h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: clamp(44px, 6vw, 76px); line-height: 1.1; letter-spacing: -0.02em; max-width: 900px; text-wrap: pretty;">A quiet foundation for considered travel.</h1>
+    <p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.65; color: #6B6B6B; text-wrap: pretty;">Tokens, type and a small set of base components. Designed around you — restrained enough to disappear, consistent enough to trust.</p>
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; padding-top: 12px;">
+      <x-import component-from-global-scope="Tully.Button" from="./components.jsx" variant="primary" size="lg" hint-size="200px,56px">Begin a journey</x-import>
+      <x-import component-from-global-scope="Tully.Button" variant="secondary" size="lg" hint-size="180px,56px">View the tokens</x-import>
+    </div>
+    <div style="height: 1px; background: #E3DED7; margin-top: 64px;"></div>
+  </header>
+
+  <section style="max-width: 1200px; margin: 0 auto; padding: 32px 0 96px;">
+    <x-import component-from-global-scope="Tully.SectionHeader" eyebrow="Foundations" title="Typography" description="A high-contrast serif for voice, a humanist sans for everything that has to work. Nothing below 15px." hint-size="100%,220px"></x-import>
+    <div style="display: grid; gap: 40px; padding-top: 64px;">
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Display 1 · 76 / 300</div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 76px; line-height: 1.12; letter-spacing: -0.02em;">Access that opens doors</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Display 2 · 56 / 300</div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 56px; line-height: 1.12; letter-spacing: -0.02em;">The itinerary is the least of it</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Display 3 · 40 / 300</div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 40px; line-height: 1.12; letter-spacing: -0.02em;">Discretion, by default</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Title · 28 / 300</div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 28px; line-height: 1.2;">Villa Aldobrandini, Frascati</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Lead · 20 / 1.65</div>
+        <div style="font-size: 20px; line-height: 1.65; max-width: 680px; color: #2E2E2E; text-wrap: pretty;">Your advisor knows the general manager, the right suite, and the week the crowds thin. You are told none of this; you simply arrive.</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Body · 17 / 1.65</div>
+        <div style="font-size: 17px; line-height: 1.65; max-width: 680px; color: #1A1A1A; text-wrap: pretty;">Body copy sits in a column no wider than 680 pixels so the eye never has to hunt for the next line. Paragraph spacing is generous, measure is short, and the page is mostly air.</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Small · 15 / 1.65</div>
+        <div style="font-size: 15px; line-height: 1.65; max-width: 680px; color: #6B6B6B;">Captions, metadata and field hints. Muted, never grey-on-grey.</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 24px 48px; align-items: baseline; border-top: 1px solid #E3DED7; padding-top: 24px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Eyebrow · 11 / 0.18em</div>
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #B08D57;">The Tully Difference</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #F7F5F2; margin: 0 -40px; padding: 96px 40px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <x-import component-from-global-scope="Tully.SectionHeader" eyebrow="Foundations" title="Palette" description="Mostly ink on white and ink on bone. Gold is a rule, a hover, a divider — never a surface." hint-size="100%,220px"></x-import>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; padding-top: 64px;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #1A1A1A; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Ink</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--ink · #1A1A1A</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #2E2E2E; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Charcoal</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--charcoal · #2E2E2E</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #FFFFFF; border: 1px solid #E3DED7; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Background</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--bg · #FFFFFF</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #F7F5F2; border: 1px solid #E3DED7; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Bone</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--bg-warm · #F7F5F2</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #B08D57; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Antique gold</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--gold · #B08D57</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #123A3A; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Deep teal</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--deep-teal · #123A3A</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #E3DED7; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Hairline</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--line · #E3DED7</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="height: 120px; background: #6B6B6B; border-radius: 2px;"></div>
+          <div style="display: flex; flex-direction: column; gap: 4px;"><div style="font-size: 15px;">Muted</div><div style="font-size: 13px; color: #6B6B6B; letter-spacing: 0.04em;">--muted · #6B6B6B</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width: 1200px; margin: 0 auto; padding: 96px 0;">
+    <x-import component-from-global-scope="Tully.SectionHeader" eyebrow="Components" title="Buttons &amp; links" description="Squared corners, uppercase label, one accent. Hover is a shift in weight, not a colour event." hint-size="100%,220px"></x-import>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 48px; padding-top: 64px; border-top: 1px solid #E3DED7; margin-top: 64px;">
+      <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 48px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Primary</div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="Tully.Button" variant="primary" size="sm" hint-size="140px,40px">Enquire</x-import>
+          <x-import component-from-global-scope="Tully.Button" variant="primary" size="md" hint-size="160px,48px">Enquire</x-import>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 48px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Secondary</div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="Tully.Button" variant="secondary" size="sm" hint-size="140px,40px">Save for later</x-import>
+          <x-import component-from-global-scope="Tully.Button" variant="secondary" size="md" disabled="{{ true }}" hint-size="160px,48px">Unavailable</x-import>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px; padding-top: 48px;">
+        <div style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6B6B6B;">Quiet &amp; text link</div>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="Tully.Button" variant="quiet" size="sm" hint-size="120px,40px">Details</x-import>
+          <x-import component-from-global-scope="Tully.TextLink" href="#" hint-size="160px,24px">Read the journal</x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #F7F5F2; margin: 0 -40px; padding: 96px 40px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <x-import component-from-global-scope="Tully.SectionHeader" eyebrow="Components" title="Cards" description="Image, serif title, muted description, one line of metadata. The shadow is almost an accident." hint-size="100%,220px"></x-import>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; padding-top: 64px;">
+        <x-import component-from-global-scope="Tully.Card" eyebrow="Amalfi Coast" title="A private villa above Praiano" description="Ten days on a cliff terrace, a boat on call, and a cook who shops the morning market before you wake." meta="From £14,400 · Seven nights" hint-size="100%,460px"></x-import>
+        <x-import component-from-global-scope="Tully.Card" eyebrow="Kyoto" title="Shoulder season, no crowds" description="Temples at opening hour, a tea house that takes no bookings, and an interpreter who knows when to stay quiet." meta="From £11,900 · Nine nights" hint-size="100%,460px"></x-import>
+        <x-import component-from-global-scope="Tully.Card" eyebrow="Patagonia" title="The far end of the map" description="A lodge of twelve rooms, a guide to yourself, and weather that decides the itinerary each morning." meta="From £18,200 · Ten nights" hint-size="100%,460px"></x-import>
+      </div>
+      <div style="font-size: 15px; color: #6B6B6B; padding-top: 24px;">Image wells show the bone placeholder until an <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 17px;">image</span> prop is passed.</div>
+    </div>
+  </section>
+
+  <section style="max-width: 1200px; margin: 0 auto; padding: 96px 0;">
+    <x-import component-from-global-scope="Tully.SectionHeader" eyebrow="Components" title="Enquiry fields" description="Hairline underline by default, boxed where a form needs density. Labels are eyebrows, not shouts." hint-size="100%,220px"></x-import>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 64px; padding-top: 64px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 40px; max-width: 480px;">
+        <x-import component-from-global-scope="Tully.Input" label="Full name" placeholder="Eleanor Vance" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="Tully.Input" label="Where are you thinking of" placeholder="Somewhere warm, somewhere quiet" hint-size="100%,72px"></x-import>
+        <x-import component-from-global-scope="Tully.Input" label="Travel window" variant="box" placeholder="Late February, flexible" hint="Approximate is fine — we will shape it with you." hint-size="100%,120px"></x-import>
+        <div style="display: flex;">
+          <x-import component-from-global-scope="Tully.Button" variant="primary" size="md" hint-size="180px,48px">Send enquiry</x-import>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px; border-left: 1px solid #E3DED7; padding-left: 40px;">
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #B08D57;">Spacing &amp; layout</div>
+        <div style="display: grid; gap: 14px; font-size: 15px; color: #6B6B6B;">
+          <div style="display: flex; justify-content: space-between; gap: 24px; border-bottom: 1px solid #E3DED7; padding-bottom: 12px;"><span>Section rhythm</span><span style="color: #1A1A1A;">96 – 128px</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 24px; border-bottom: 1px solid #E3DED7; padding-bottom: 12px;"><span>Max content width</span><span style="color: #1A1A1A;">1200px</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 24px; border-bottom: 1px solid #E3DED7; padding-bottom: 12px;"><span>Text measure</span><span style="color: #1A1A1A;">680px</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 24px; border-bottom: 1px solid #E3DED7; padding-bottom: 12px;"><span>Gutter</span><span style="color: #1A1A1A;">40px</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 24px;"><span>Corner radius</span><span style="color: #1A1A1A;">2 – 4px</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #123A3A; margin: 0 -40px; padding: 96px 40px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; justify-content: space-between; align-items: flex-end;">
+      <div style="display: flex; flex-direction: column; gap: 20px; max-width: 520px;">
+        <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: #B08D57;">Dark section</div>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 40px; line-height: 1.15; letter-spacing: -0.02em; color: #FFFFFF; text-wrap: pretty;">Designed around you, from the first conversation.</div>
+        <div style="font-size: 17px; line-height: 1.65; color: #D6DEDA; text-wrap: pretty;">The deep teal ground carries white type and gold eyebrows only. Use it once per page, at the end.</div>
+      </div>
+      <div style="display: flex; gap: 32px; align-items: center;">
+        <x-import component-from-global-scope="Tully.Button" variant="invert" size="md" hint-size="180px,48px">Speak with an advisor</x-import>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+</body>
+</html>

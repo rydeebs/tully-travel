@@ -1,0 +1,65 @@
+/* Tully-inspired luxury travel system — design tokens
+   Import once at app root: @import "./tokens.css"; */
+
+:root {
+  /* Color */
+  --ink: #1A1A1A;
+  --charcoal: #2E2E2E;
+  --bg: #FFFFFF;
+  --bg-warm: #F7F5F2;
+  --gold: #B08D57;
+  --gold-deep: #967543;
+  --deep-teal: #123A3A;
+  --line: #E3DED7;
+  --muted: #6B6B6B;
+
+  /* Type families */
+  --font-display: "Cormorant Garamond", "Canela", Georgia, serif;
+  --font-body: "Instrument Sans", "Söhne", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale — display (serif, light, tight) */
+  --size-display-1: 76px;
+  --size-display-2: 56px;
+  --size-display-3: 40px;
+  --size-title: 28px;
+  --lh-display: 1.12;
+  --ls-display: -0.02em;
+
+  /* Type scale — body (sans, relaxed) */
+  --size-lead: 20px;
+  --size-body: 17px;
+  --size-small: 15px;
+  --size-eyebrow: 11px;
+  --lh-body: 1.65;
+  --ls-eyebrow: 0.18em;
+
+  /* Weights */
+  --weight-display: 300;
+  --weight-body: 400;
+  --weight-medium: 500;
+
+  /* Spacing — 8px base, editorial rhythm at the top end */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 128px;
+
+  /* Layout */
+  --width-content: 1200px;
+  --width-text: 680px;
+  --gutter: 40px;
+
+  /* Form / surface */
+  --radius: 2px;
+  --radius-lg: 4px;
+  --border-hairline: 1px solid var(--line);
+  --shadow-soft: 0 1px 2px rgba(26, 26, 26, 0.04);
+  --shadow-lift: 0 8px 24px rgba(26, 26, 26, 0.06);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration: 260ms;
+}

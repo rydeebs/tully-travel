@@ -1,0 +1,213 @@
+.app-dash-erp-system-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-block: var(--border-hairline);
+}
+
+.app-dash-erp-system {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-left: var(--border-hairline);
+  padding: var(--space-4);
+}
+
+.app-dash-erp-system:first-child {
+  border-left: 0;
+}
+
+.app-dash-erp-system__heading {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.app-dash-erp-system__name,
+.app-dash-fin-panel__title {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  font-weight: var(--weight-display);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.app-dash-erp-system__role {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--size-small);
+  line-height: 1.5;
+}
+
+.app-dash-erp-system__metrics {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.app-dash-erp-system__metrics div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-2);
+}
+
+.app-dash-erp-system__metrics dt,
+.app-dash-fin-overdue__title {
+  color: var(--muted);
+  font-size: var(--size-eyebrow);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+
+.app-dash-erp-system__metrics dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--size-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.app-dash-erp-readiness {
+  min-width: 112px;
+}
+
+.app-dash-erp-caption,
+.app-dash-fin-caption {
+  max-width: var(--width-text);
+  margin: var(--space-3) 0 0;
+  color: var(--muted);
+  font-size: var(--size-small);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.app-dash-erp-supplier-name {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.app-dash-erp-score {
+  display: grid;
+  grid-template-columns: minmax(72px, 1fr) max-content;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.app-dash-erp-score__track {
+  position: relative;
+  height: 2px;
+  background: var(--line);
+}
+
+.app-dash-erp-score__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--ink);
+}
+
+.app-dash-erp-score__fill--leader {
+  background: var(--gold);
+}
+
+.app-dash-erp-score__value {
+  color: var(--ink);
+  font-size: var(--size-small);
+  font-variant-numeric: tabular-nums;
+}
+
+.app-dash-fin-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.app-dash-fin-panel {
+  min-width: 0;
+  border-top: var(--border-hairline);
+  padding-top: var(--space-4);
+}
+
+.app-dash-fin-overdue {
+  margin-top: var(--space-4);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-3);
+}
+
+.app-dash-fin-overdue__title {
+  margin: 0 0 var(--space-3);
+}
+
+.app-dash-fin-overdue__list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-dash-fin-overdue__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content max-content;
+  gap: var(--space-3);
+  border-bottom: var(--border-hairline);
+  padding: var(--space-2) 0;
+  color: var(--ink);
+  font-size: var(--size-small);
+  line-height: 1.5;
+}
+
+.app-dash-fin-overdue__item strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-medium);
+}
+
+.app-dash-fin-overdue__item span:last-child {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.app-dash-fin-close-progress {
+  margin-top: var(--space-4);
+}
+
+.app-dash-fin-note-list {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--width-text);
+  margin: 0;
+  padding-left: var(--space-4);
+  color: var(--ink);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+}
+
+.app-dash-fin-note-list li::marker {
+  color: var(--gold);
+}
+
+@media (max-width: 899px) {
+  .app-dash-erp-system-grid,
+  .app-dash-fin-two-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app-dash-erp-system {
+    border-top: var(--border-hairline);
+    border-left: 0;
+  }
+
+  .app-dash-erp-system:first-child {
+    border-top: 0;
+  }
+}
