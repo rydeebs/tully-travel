@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Eyebrow } from "../components";
+import logoUrl from "../assets/tully-logo.png";
 import { TABS, type TabId } from "./tabs";
 
 type ShellProps = {
@@ -35,7 +36,7 @@ export function Shell({ active, children, hideSidebar, onSelect }: ShellProps) {
       >
         <div className="app-dash-sidebar__top">
           <div className="app-dash-sidebar__brand">
-            <div className="app-wordmark">Tully</div>
+            <img alt="Tully Luxury Travel" className="app-dash-sidebar__logo" height={50} src={logoUrl} width={602} />
             <Eyebrow tone="muted">Operating System</Eyebrow>
           </div>
           <nav className="app-dash-nav">

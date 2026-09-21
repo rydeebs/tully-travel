@@ -38,6 +38,15 @@
   gap: var(--space-2);
 }
 
+.app-dash-sidebar__logo {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  /* The artwork ships on a white ground; multiply drops it onto the bone sidebar. */
+  mix-blend-mode: multiply;
+}
+
 .app-dash-nav {
   display: flex;
   flex-direction: column;
@@ -611,6 +620,10 @@
 
   .app-dash-sidebar__brand {
     gap: var(--space-1);
+  }
+
+  .app-dash-sidebar__logo {
+    max-width: 180px;
   }
 
   .app-dash-nav {
