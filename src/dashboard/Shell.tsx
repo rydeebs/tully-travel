@@ -14,15 +14,8 @@ function cx(...classes: Array<string | false | null | undefined>) {
 }
 
 export function Shell({ active, children, hideSidebar, onSelect }: ShellProps) {
-  const [syncAge, setSyncAge] = useState(0);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setSyncAge((current) => (current >= 29 ? 0 : current + 1));
-    }, 1000);
-
-    return () => window.clearInterval(interval);
-  }, []);
+  // Stamped once when the dashboard loads, e.g. "Monday 21 Sep, 10:42 am".
+  const [syncedAt] = useState(() => formatSyncTime(new Date()));
 
   // In the narrow top-strip layout the active tab can sit off-screen; bring it into view.
   useEffect(() => {
@@ -65,12 +58,18 @@ export function Shell({ active, children, hideSidebar, onSelect }: ShellProps) {
           </nav>
         </div>
         <div className="app-dash-sidebar__live">
-          <Eyebrow>Live</Eyebrow>
-          <p className="app-dash-sidebar__live-title">Synced {syncAge}s ago</p>
+          <Eyebrow>Last synced</Eyebrow>
+          <p className="app-dash-sidebar__live-title">{syncedAt}</p>
           <p className="app-dash-sidebar__live-copy">Week of 21 September 2026</p>
         </div>
       </aside>
       <div className="app-dash-main">{children}</div>
     </div>
   );
+}
+
+function formatSyncTime(date: Date) {
+  const day = date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "short" });
+  const time = date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).toLowerCase();
+  return `${day}, ${time}`;
 }
