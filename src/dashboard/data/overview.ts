@@ -35,6 +35,19 @@ export type OverviewFeedItem = {
   time: string;
 };
 
+export type OverviewSystemMetric = {
+  [key: string]: unknown;
+  before: string;
+  change: string;
+  description: string;
+  id: string;
+  metric: string;
+  now: string;
+  owner: "Sales" | "Operations" | "Finance" | "Client experience";
+  status: "Target met" | "On track";
+  system: string;
+};
+
 export const overviewBookedRevenueSpark = [
   1_280_000, 1_340_000, 1_290_000, 1_410_000, 1_520_000, 1_480_000, 1_630_000, 1_710_000,
   1_690_000, 1_780_000, 1_820_000, 1_840_000,
@@ -111,6 +124,97 @@ export const overviewBookingSeries: OverviewBookingSeries[] = [
       2_140_000,
       2_220_000,
     ],
+  },
+];
+
+export const overviewSystemMetrics: OverviewSystemMetric[] = [
+  {
+    id: "proposal-engine",
+    system: "Proposal Engine",
+    description: "Turns qualified briefs into editable first-draft itinerary copy.",
+    owner: "Sales",
+    metric: "Brief to first draft",
+    before: "3.5 days",
+    now: "38 s",
+    change: "≈8,000× faster",
+    status: "Target met",
+  },
+  {
+    id: "lead-enricher-scorer",
+    system: "Lead Enricher & Scorer",
+    description: "Adds source context, trip fit, and priority scoring for inbound leads.",
+    owner: "Sales",
+    metric: "Median first response",
+    before: "9.5 h",
+    now: "2.4 h",
+    change: "-75%",
+    status: "Target met",
+  },
+  {
+    id: "invoice-reconciler",
+    system: "Invoice Reconciler",
+    description: "Matches supplier commission statements to Trams and drafts disputes.",
+    owner: "Finance",
+    metric: "Statement reconciliation",
+    before: "6 days",
+    now: "4 min",
+    change: "≈2,000× faster",
+    status: "Target met",
+  },
+  {
+    id: "pipeline-forecast",
+    system: "Pipeline forecast layer",
+    description: "Weights open opportunities by stage, designer history, and source quality.",
+    owner: "Sales",
+    metric: "Forecast accuracy",
+    before: "±22%",
+    now: "±6%",
+    change: "-16 pts",
+    status: "Target met",
+  },
+  {
+    id: "supplier-reliability",
+    system: "Supplier reliability scoring",
+    description: "Ranks preferred partners from confirmation speed, payment history, and issues.",
+    owner: "Operations",
+    metric: "Confirmation speed",
+    before: "3.1 days",
+    now: "1.6 days",
+    change: "-48%",
+    status: "On track",
+  },
+  {
+    id: "month-end-close",
+    system: "Month-end close",
+    description: "Matches statements, accruals, and bank feeds before close review.",
+    owner: "Finance",
+    metric: "Close cycle",
+    before: "11 days",
+    now: "6 days",
+    change: "-45%",
+    status: "Target met",
+  },
+  {
+    id: "warehouse-margin",
+    system: "Data warehouse & margin dashboards",
+    description: "Models bookings, commissions, and collection margin once for leadership.",
+    owner: "Finance",
+    metric: "Margin visibility",
+    before: "Monthly",
+    now: "Weekly",
+    change: "4x cadence",
+    status: "Target met",
+  },
+  {
+    id: "engagement-writeback",
+    system: "Client engagement write-back",
+    description: "Writes proposal, email, and trip signals back to the client record.",
+    owner: "Client experience",
+    metric: "Signals captured in CRM",
+    before: "0%",
+    now: "92% of active clients",
+    change: "+92 pts",
+    status: "On track",
   },
 ];
 

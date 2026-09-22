@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+import { Eyebrow } from "../../components";
 import { Kpi } from "../Kpi";
 import { KpiRow } from "../KpiRow";
 import { PageHeader } from "../PageHeader";
@@ -6,17 +8,36 @@ import { StatusTag, Table, type TableColumn } from "../Table";
 import { ColumnChart, Funnel, Meter } from "../charts";
 import {
   crmDesignerLeaderboard,
+  crmEngagementFunnelStages,
+  crmEngagementKpis,
+  crmEngagementSignalPool,
+  crmEngagementSignals,
   crmInboundLeads,
   crmPipelineStages,
+  crmQ4ForecastKpis,
+  crmQ4ForecastMoves,
+  crmQ4ForecastRows,
   crmQuietDeals,
   crmRepeatBookingValues,
   crmRepeatBookingYears,
   crmRepeatMetrics,
   type CrmDesignerRow,
+  type CrmEngagementSignal,
+  type CrmForecastRow,
   type CrmLead,
   type ScoreTier,
 } from "../data/crm";
 import { money, num, pct } from "../format";
+import { useLiveTicker } from "../useLiveTicker";
+
+type ForecastMetricKey = "bookedToDate" | "commit" | "bestCase" | "target";
+
+const forecastMetrics: Array<{ key: ForecastMetricKey; label: string }> = [
+  { key: "bookedToDate", label: "Booked" },
+  { key: "commit", label: "Commit" },
+  { key: "bestCase", label: "Best case" },
+  { key: "target", label: "Target" },
+];
 
 function toneForTier(tier: ScoreTier) {
   if (tier === "Hot") {
@@ -28,6 +49,58 @@ function toneForTier(tier: ScoreTier) {
   }
 
   return "muted";
+}
+
+function toneForSignal(status: CrmEngagementSignal["status"]) {
+  return status === "Triggers follow-up" ? "gold" : "muted";
+}
+
+function forecastMoney(value: number) {
+  return `$${(value / 1_000_000).toFixed(1)}M`;
+}
+
+function forecastShare(value: number, scale: number) {
+  const bounded = Math.min(Math.max(value / scale, 0), 1);
+  return `${bounded * 100}%`;
+}
+
+// Months share one scale so their bars compare; the quarter total gets its own.
+function forecastScale(row: CrmForecastRow) {
+  const rows = crmQ4ForecastRows.filter((item) => Boolean(item.total) === Boolean(row.total));
+  return Math.max(...rows.flatMap((item) => [item.bestCase, item.target]));
+}
+
+function ForecastBulletRow({ row }: { row: CrmForecastRow }) {
+  const scale = forecastScale(row);
+
+  return (
+    <li className={row.total ? "app-dash-crm-bullet-row app-dash-crm-bullet-row--total" : "app-dash-crm-bullet-row"}>
+      <div className="app-dash-crm-bullet-row__label">{row.label}</div>
+      <div
+        aria-label={`${row.label}: booked to date ${forecastMoney(row.bookedToDate)}, commit ${forecastMoney(
+          row.commit,
+        )}, best case ${forecastMoney(row.bestCase)}, target ${forecastMoney(row.target)}`}
+        className="app-dash-crm-bullet"
+        role="img"
+      >
+        <span className="app-dash-crm-bullet__track" style={{ width: forecastShare(row.bestCase, scale) }} />
+        <span className="app-dash-crm-bullet__commit" style={{ width: forecastShare(row.commit, scale) }} />
+        <span
+          className="app-dash-crm-bullet__booked"
+          style={{ width: forecastShare(row.bookedToDate, scale) }}
+        />
+        <span className="app-dash-crm-bullet__target" style={{ left: forecastShare(row.target, scale) }} />
+      </div>
+      <dl className="app-dash-crm-bullet-values">
+        {forecastMetrics.map((metric) => (
+          <div className="app-dash-crm-bullet-values__item" key={metric.key}>
+            <dt>{metric.label}</dt>
+            <dd>{forecastMoney(row[metric.key])}</dd>
+          </div>
+        ))}
+      </dl>
+    </li>
+  );
 }
 
 const leadColumns: Array<TableColumn<CrmLead>> = [
@@ -86,8 +159,45 @@ const designerColumns: Array<TableColumn<CrmDesignerRow>> = [
   },
 ];
 
+const engagementColumns: Array<TableColumn<CrmEngagementSignal>> = [
+  { header: "Time", key: "time", width: "8%" },
+  { header: "Client", key: "client", width: "16%" },
+  { header: "Signal", key: "signal", width: "28%" },
+  { header: "Source", key: "source", width: "16%" },
+  {
+    header: "HubSpot property written",
+    key: "hubspotProperty",
+    render: (row) => <code className="app-dash-crm-property">{row.hubspotProperty}</code>,
+    width: "20%",
+  },
+  {
+    header: "Status",
+    key: "status",
+    render: (row) => <StatusTag tone={toneForSignal(row.status)}>{row.status}</StatusTag>,
+    width: "12%",
+  },
+];
+
 export function CrmTab() {
+  const engagementTick = useLiveTicker(12000);
+  const lastSignalTick = useRef(0);
+  const [recentSignals, setRecentSignals] = useState(() => crmEngagementSignals);
   const sortedLeads = [...crmInboundLeads].sort((a, b) => b.score - a.score);
+
+  useEffect(() => {
+    if (engagementTick === 0 || engagementTick % 2 === 1 || lastSignalTick.current === engagementTick) {
+      return;
+    }
+
+    lastSignalTick.current = engagementTick;
+    const poolIndex = (engagementTick / 2 - 1) % crmEngagementSignalPool.length;
+    const nextSignal = crmEngagementSignalPool[poolIndex];
+
+    setRecentSignals((current) => [
+      { ...nextSignal, id: `${nextSignal.id}-${engagementTick}` },
+      ...current,
+    ].slice(0, 7));
+  }, [engagementTick]);
 
   return (
     <main className="app-dash-page app-dash-crm-page app-fade">
@@ -114,6 +224,60 @@ export function CrmTab() {
 
       <Section title="Pipeline by stage">
         <Funnel stages={crmPipelineStages} />
+      </Section>
+
+      <Section aside={<Eyebrow tone="muted">Weekly forecast layer</Eyebrow>} title="Pipeline forecast, Q4 2026">
+        <div className="app-dash-crm-forecast">
+          <KpiRow>
+            {crmQ4ForecastKpis.map((kpi) => (
+              <Kpi key={kpi.label} label={kpi.label} note={kpi.note} value={kpi.value} />
+            ))}
+          </KpiRow>
+
+          <div className="app-dash-crm-forecast-grid">
+            <div className="app-dash-crm-panel app-dash-crm-forecast-panel">
+              <div className="app-dash-crm-bullet-legend" aria-label="Forecast legend">
+                <span className="app-dash-crm-bullet-legend__item">
+                  <span className="app-dash-crm-bullet-legend__key app-dash-crm-bullet-legend__key--booked" />
+                  Booked
+                </span>
+                <span className="app-dash-crm-bullet-legend__item">
+                  <span className="app-dash-crm-bullet-legend__key app-dash-crm-bullet-legend__key--commit" />
+                  Commit
+                </span>
+                <span className="app-dash-crm-bullet-legend__item">
+                  <span className="app-dash-crm-bullet-legend__key app-dash-crm-bullet-legend__key--best" />
+                  Best case
+                </span>
+                <span className="app-dash-crm-bullet-legend__item">
+                  <span className="app-dash-crm-bullet-legend__key app-dash-crm-bullet-legend__key--target" />
+                  Target
+                </span>
+              </div>
+
+              <ol className="app-dash-crm-bullet-list">
+                {crmQ4ForecastRows.map((row) => (
+                  <ForecastBulletRow key={row.id} row={row} />
+                ))}
+              </ol>
+            </div>
+
+            <div className="app-dash-crm-panel">
+              <h3 className="app-dash-crm-panel__title">What moved this week</h3>
+              <ul className="app-dash-crm-move-list">
+                {crmQ4ForecastMoves.map((move) => (
+                  <li className="app-dash-crm-move-list__item" key={move}>
+                    {move}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <p className="app-dash-crm-section-caption">
+            Rebuilt every Monday 06:00 from HubSpot stages, deposit history in Trams and designer-level win rates.
+          </p>
+        </div>
       </Section>
 
       <Section title="Inbound leads, enriched and scored">
@@ -153,6 +317,33 @@ export function CrmTab() {
             <h3 className="app-dash-crm-panel__title">Designer leaderboard</h3>
             <Table columns={designerColumns} dense keyField="id" rows={crmDesignerLeaderboard} />
           </div>
+        </div>
+      </Section>
+
+      <Section title="Client engagement, written back to HubSpot">
+        <div className="app-dash-crm-engagement">
+          <KpiRow>
+            {crmEngagementKpis.map((kpi) => (
+              <Kpi key={kpi.label} label={kpi.label} value={kpi.value} />
+            ))}
+          </KpiRow>
+
+          <div className="app-dash-crm-engagement-grid">
+            <div className="app-dash-crm-panel">
+              <h3 className="app-dash-crm-panel__title">Client lifecycle</h3>
+              <Funnel labelWidth={230} stages={crmEngagementFunnelStages} />
+            </div>
+
+            <div className="app-dash-crm-panel app-dash-crm-signals-panel">
+              <h3 className="app-dash-crm-panel__title">Recent signals</h3>
+              <Table columns={engagementColumns} dense keyField="id" rows={recentSignals} />
+            </div>
+          </div>
+
+          <p className="app-dash-crm-section-caption">
+            Every signal lands on the HubSpot contact within a minute, so designers see who is leaning in and the
+            Lead Enricher scores repeat clients on real behaviour.
+          </p>
         </div>
       </Section>
 

@@ -8,9 +8,14 @@ import { money, num, pct } from "../format";
 import { useLiveTicker } from "../useLiveTicker";
 import {
   bookingStatusItems,
+  dataBackboneConsumers,
+  dataBackboneModels,
+  dataBackboneSources,
+  dataBackboneStats,
   supplierReliability,
   systemConnections,
   upcomingDepartures,
+  type DataBackboneSource,
   type Departure,
   type DepartureStatus,
   type SupplierReliability,
@@ -18,6 +23,20 @@ import {
 
 function departureStatusTone(status: DepartureStatus) {
   return status === "Ready" ? "ink" : "gold";
+}
+
+function backboneFreshnessLabel(source: DataBackboneSource, tick: number) {
+  if (source.freshness.kind === "synced") {
+    return `synced ${source.freshness.baseSeconds + tick}s ago`;
+  }
+
+  return source.freshness.label;
+}
+
+function backboneFreshnessTone(source: DataBackboneSource) {
+  return source.freshness.kind === "fixed" && source.freshness.label === "streaming"
+    ? "gold"
+    : "muted";
 }
 
 function ReliabilityScore({ score, highlighted = false }: { highlighted?: boolean; score: number }) {
@@ -110,6 +129,8 @@ const supplierColumns: Array<TableColumn<SupplierReliability>> = [
 
 export function ErpTab() {
   const tick = useLiveTicker(1000);
+  const backboneRecordsSyncedToday =
+    dataBackboneStats.recordsSyncedToday + tick * dataBackboneStats.recordsPerTick;
 
   return (
     <main className="app-dash-page app-fade">
@@ -119,6 +140,76 @@ export function ErpTab() {
         lead="Bookings in flight, near-term departures and supplier reliability are held in one operating view, so the leadership team can see where the back office needs attention before the client feels it."
         title="The back office, in one place"
       />
+
+      <Section eyebrow="Systems and data" title="The data backbone">
+        <p className="app-dash-backbone__lead">
+          Every source lands in one warehouse, is modelled once, and feeds every view in this dashboard.
+        </p>
+
+        <div className="app-dash-backbone__diagram" aria-label="Tully data backbone">
+          <div className="app-dash-backbone__column app-dash-backbone__column--sources">
+            <h3 className="app-dash-backbone__column-title">Sources</h3>
+            <ul className="app-dash-backbone__source-list">
+              {dataBackboneSources.map((source) => (
+                <li className="app-dash-backbone__source" key={source.id}>
+                  <div className="app-dash-backbone__source-heading">
+                    <span className="app-dash-backbone__source-name">{source.name}</span>
+                    <StatusTag tone={backboneFreshnessTone(source)}>
+                      {backboneFreshnessLabel(source, tick)}
+                    </StatusTag>
+                  </div>
+                  <p className="app-dash-backbone__source-role">{source.contribution}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <span className="app-dash-backbone__connector" aria-hidden="true" />
+
+          <div className="app-dash-backbone__warehouse">
+            <div className="app-dash-backbone__warehouse-heading">
+              <h3 className="app-dash-backbone__warehouse-title">Tully warehouse</h3>
+              <p className="app-dash-backbone__warehouse-subtitle">Postgres · modelled with dbt</p>
+            </div>
+            <ul className="app-dash-backbone__model-list">
+              {dataBackboneModels.map((model) => (
+                <li className="app-dash-backbone__model" key={model.id}>
+                  <span>{model.name}</span>
+                  <span>{num(model.rowCount)} rows</span>
+                </li>
+              ))}
+            </ul>
+            <p className="app-dash-backbone__warehouse-run">
+              Last full model run 06:00 · incremental every 15 min
+            </p>
+          </div>
+
+          <span className="app-dash-backbone__connector" aria-hidden="true" />
+
+          <div className="app-dash-backbone__column app-dash-backbone__column--consumers">
+            <h3 className="app-dash-backbone__column-title">Consumers</h3>
+            <ul className="app-dash-backbone__consumer-list">
+              {dataBackboneConsumers.map((consumer) => (
+                <li className="app-dash-backbone__consumer" key={consumer.id}>
+                  {consumer.name}
+                </li>
+              ))}
+            </ul>
+            <p className="app-dash-backbone__consumer-note">
+              Agents read and write through the same models
+            </p>
+          </div>
+        </div>
+
+        <div className="app-dash-backbone__stats" aria-label="Backbone health">
+          <KpiRow>
+            <Kpi label="Sources connected" value={num(dataBackboneStats.sourcesConnected)} />
+            <Kpi label="Records synced today" value={num(backboneRecordsSyncedToday)} />
+            <Kpi label="Data latency" value={dataBackboneStats.dataLatency} />
+            <Kpi label="Failed syncs (24h)" value={num(dataBackboneStats.failedSyncs24h)} />
+          </KpiRow>
+        </div>
+      </Section>
 
       <Section title="Connected systems">
         <div className="app-dash-erp-system-grid">

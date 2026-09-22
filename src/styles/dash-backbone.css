@@ -1,0 +1,236 @@
+.app-dash-ov-system-lead,
+.app-dash-backbone__lead {
+  max-width: var(--width-text);
+  margin: 0 0 var(--space-4);
+  color: var(--muted);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  text-wrap: pretty;
+}
+
+.app-dash-ov-system-table .app-dash-table {
+  min-width: 920px;
+}
+
+.app-dash-ov-system-cell {
+  display: grid;
+  min-width: 190px;
+  gap: var(--space-1);
+}
+
+.app-dash-ov-system-cell__name {
+  color: var(--ink);
+  font-size: var(--size-small);
+  line-height: 1.45;
+}
+
+.app-dash-ov-system-cell__description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.app-dash-backbone__diagram {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    32px
+    minmax(240px, 0.9fr)
+    32px
+    minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-5);
+}
+
+.app-dash-backbone__column,
+.app-dash-backbone__warehouse {
+  min-width: 0;
+}
+
+.app-dash-backbone__column-title,
+.app-dash-backbone__warehouse-title {
+  margin: 0 0 var(--space-4);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  font-weight: var(--weight-display);
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.app-dash-backbone__source-list,
+.app-dash-backbone__consumer-list,
+.app-dash-backbone__model-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-dash-backbone__source-list,
+.app-dash-backbone__consumer-list {
+  border-block: var(--border-hairline);
+}
+
+.app-dash-backbone__source,
+.app-dash-backbone__consumer,
+.app-dash-backbone__model {
+  border-top: var(--border-hairline);
+}
+
+.app-dash-backbone__source:first-child,
+.app-dash-backbone__consumer:first-child,
+.app-dash-backbone__model:first-child {
+  border-top: 0;
+}
+
+.app-dash-backbone__source {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+}
+
+.app-dash-backbone__source-heading {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.app-dash-backbone__source-name,
+.app-dash-backbone__consumer {
+  color: var(--ink);
+  font-size: var(--size-small);
+  line-height: 1.45;
+}
+
+.app-dash-backbone__source-role,
+.app-dash-backbone__warehouse-subtitle,
+.app-dash-backbone__warehouse-run,
+.app-dash-backbone__consumer-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.app-dash-backbone__connector {
+  position: relative;
+  display: block;
+  align-self: center;
+  height: 1px;
+  background: var(--line);
+}
+
+.app-dash-backbone__connector::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--gold);
+  border-right: 1px solid var(--gold);
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.app-dash-backbone__warehouse {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-self: stretch;
+  border: var(--border-hairline);
+  background: var(--bg-warm);
+  padding: var(--space-5);
+}
+
+.app-dash-backbone__warehouse-heading {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.app-dash-backbone__warehouse-title {
+  margin-bottom: 0;
+}
+
+.app-dash-backbone__model-list {
+  border-block: var(--border-hairline);
+}
+
+.app-dash-backbone__model {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.app-dash-backbone__model span:last-child {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.app-dash-backbone__consumer {
+  padding: var(--space-3) 0;
+}
+
+.app-dash-backbone__consumer-note {
+  margin-top: var(--space-4);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-3);
+}
+
+.app-dash-backbone__stats {
+  margin-top: var(--space-5);
+  border-top: var(--border-hairline);
+  padding-top: var(--space-5);
+}
+
+.app-dash-backbone__stats .app-dash-kpi__value {
+  font-size: 36px;
+}
+
+@media (max-width: 899px) {
+  .app-dash-backbone__diagram {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .app-dash-backbone__connector {
+    justify-self: center;
+    width: 1px;
+    height: var(--space-5);
+  }
+
+  .app-dash-backbone__connector::after {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 50%;
+    border-top: 0;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .app-dash-backbone__warehouse {
+    padding: var(--space-4);
+  }
+}
+
+@media (max-width: 700px) {
+  .app-dash-backbone__stats .app-dash-kpi__value {
+    font-size: 32px;
+  }
+}

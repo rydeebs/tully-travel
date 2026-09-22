@@ -11,6 +11,42 @@ export type SystemConnection = {
   statusTone: "ink" | "gold";
 };
 
+export type DataBackboneFreshness =
+  | {
+      baseSeconds: number;
+      kind: "synced";
+    }
+  | {
+      kind: "fixed";
+      label: "streaming" | "hourly";
+    };
+
+export type DataBackboneSource = {
+  contribution: string;
+  freshness: DataBackboneFreshness;
+  id: string;
+  name: string;
+};
+
+export type DataBackboneModel = {
+  id: string;
+  name: string;
+  rowCount: number;
+};
+
+export type DataBackboneConsumer = {
+  id: string;
+  name: string;
+};
+
+export type DataBackboneStats = {
+  dataLatency: string;
+  failedSyncs24h: number;
+  recordsPerTick: number;
+  recordsSyncedToday: number;
+  sourcesConnected: number;
+};
+
 export type BookingStatus = {
   highlight?: boolean;
   label: string;
@@ -102,6 +138,69 @@ export const systemConnections: SystemConnection[] = [
     statusTone: "gold",
   },
 ];
+
+export const dataBackboneSources: DataBackboneSource[] = [
+  {
+    id: "clientbase",
+    name: "ClientBase",
+    contribution: "clients",
+    freshness: { kind: "synced", baseSeconds: 40 },
+  },
+  {
+    id: "trams",
+    name: "Trams",
+    contribution: "accounting & commissions",
+    freshness: { kind: "synced", baseSeconds: 43 },
+  },
+  {
+    id: "travefy",
+    name: "Travefy",
+    contribution: "itineraries",
+    freshness: { kind: "synced", baseSeconds: 38 },
+  },
+  {
+    id: "hubspot",
+    name: "HubSpot",
+    contribution: "CRM",
+    freshness: { kind: "fixed", label: "streaming" },
+  },
+  {
+    id: "supplier-extranets",
+    name: "Supplier extranets",
+    contribution: "14 connected",
+    freshness: { kind: "fixed", label: "hourly" },
+  },
+  {
+    id: "proposal-agents",
+    name: "Proposal Engine & agents",
+    contribution: "events",
+    freshness: { kind: "fixed", label: "streaming" },
+  },
+];
+
+export const dataBackboneModels: DataBackboneModel[] = [
+  { id: "clients", name: "clients", rowCount: 62_480 },
+  { id: "bookings", name: "bookings", rowCount: 18_936 },
+  { id: "commissions", name: "commissions", rowCount: 41_772 },
+  { id: "suppliers", name: "suppliers", rowCount: 1_104 },
+  { id: "engagement-events", name: "engagement_events", rowCount: 184_220 },
+];
+
+export const dataBackboneConsumers: DataBackboneConsumer[] = [
+  { id: "overview", name: "Overview" },
+  { id: "crm", name: "CRM" },
+  { id: "erp", name: "ERP" },
+  { id: "finance", name: "Finance" },
+  { id: "agentic-operations", name: "Agentic Operations" },
+];
+
+export const dataBackboneStats: DataBackboneStats = {
+  sourcesConnected: 19,
+  recordsSyncedToday: 3_612,
+  recordsPerTick: 2,
+  dataLatency: "15 min",
+  failedSyncs24h: 1,
+};
 
 export const bookingStatusItems: BookingStatus[] = [
   { label: "Quoted", value: 86, note: "pricing with suppliers" },

@@ -8,6 +8,7 @@ import "./styles/dashboard.css";
 import "./styles/dash-overview-crm.css";
 import "./styles/dash-erp-finance.css";
 import "./styles/dash-agents.css";
+import "./styles/dash-backbone.css";
 import { App } from "./App";
 
 const rootElement = document.getElementById("root");

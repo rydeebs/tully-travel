@@ -33,6 +33,7 @@ type BarChartProps = {
 };
 
 type FunnelProps = {
+  labelWidth?: number;
   stages: Array<{
     count: number;
     label: string;
@@ -435,10 +436,10 @@ export function BarChart({ format, items, max }: BarChartProps) {
   );
 }
 
-export function Funnel({ stages }: FunnelProps) {
+export function Funnel({ labelWidth = 156, stages }: FunnelProps) {
   const [rootRef, chartWidth] = useMeasuredWidth<HTMLDivElement>();
   const height = Math.max(96, stages.length * 46 + 20);
-  const left = 156;
+  const left = labelWidth;
   const right = 136;
   const plotWidth = chartWidth - left - right;
   const max = Math.max(...stages.map((stage) => stage.count), 1);

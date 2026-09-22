@@ -45,6 +45,34 @@ export type CrmQuietDeal = {
   value: number;
 };
 
+export type CrmDashboardKpi = {
+  label: string;
+  note?: string;
+  value: string;
+};
+
+export type CrmForecastRow = {
+  bestCase: number;
+  bookedToDate: number;
+  commit: number;
+  id: string;
+  label: string;
+  target: number;
+  total?: boolean;
+};
+
+export type CrmEngagementSignalStatus = "Written back" | "Triggers follow-up";
+
+export type CrmEngagementSignal = Record<string, unknown> & {
+  client: string;
+  hubspotProperty: string;
+  id: string;
+  signal: string;
+  source: "Proposal Engine" | "Travefy" | "Pre-trip Brief agent" | "Survey";
+  status: CrmEngagementSignalStatus;
+  time: string;
+};
+
 export const crmDesignerNames = [
   "Amelia R.",
   "Jonah M.",
@@ -64,6 +92,60 @@ export const crmPipelineStages: CrmPipelineStage[] = [
   { count: 86, label: "Proposal sent", value: "$17.4M / 86" },
   { count: 41, label: "Deposit", value: "$9.2M / 41" },
   { count: 33, label: "Booked", value: "$7.8M / 33" },
+];
+
+export const crmQ4ForecastKpis: CrmDashboardKpi[] = [
+  { label: "Commit", value: "$21.4M" },
+  { label: "Best case", value: "$26.9M" },
+  { label: "Target", value: "$24.0M" },
+  { label: "Coverage", note: "Weighted pipeline ÷ remaining target.", value: "2.1x" },
+  {
+    label: "Forecast accuracy last quarter",
+    note: "was ±22% before the forecast layer",
+    value: "±6%",
+  },
+];
+
+export const crmQ4ForecastRows: CrmForecastRow[] = [
+  {
+    bestCase: 8_600_000,
+    bookedToDate: 3_100_000,
+    commit: 7_400_000,
+    id: "forecast-oct-2026",
+    label: "Oct",
+    target: 8_000_000,
+  },
+  {
+    bestCase: 9_000_000,
+    bookedToDate: 2_200_000,
+    commit: 7_000_000,
+    id: "forecast-nov-2026",
+    label: "Nov",
+    target: 8_000_000,
+  },
+  {
+    bestCase: 9_300_000,
+    bookedToDate: 1_500_000,
+    commit: 7_000_000,
+    id: "forecast-dec-2026",
+    label: "Dec",
+    target: 8_000_000,
+  },
+  {
+    bestCase: 26_900_000,
+    bookedToDate: 6_800_000,
+    commit: 21_400_000,
+    id: "forecast-q4-2026",
+    label: "Q4 total",
+    target: 24_000_000,
+    total: true,
+  },
+];
+
+export const crmQ4ForecastMoves = [
+  "+$1.2M to commit: Harcourt family Noble Estates deposit received",
+  "-$640K from best case: M. Okafor safari moved into Q1",
+  "Nov target gap narrowed to $1.0M after the Watanabe Eastern Soul hold",
 ];
 
 export const crmInboundLeads: CrmLead[] = [
@@ -162,6 +244,136 @@ export const crmInboundLeads: CrmLead[] = [
     source: "Instagram",
     tier: "Nurture",
     wealthSignal: "Band C",
+  },
+];
+
+export const crmEngagementKpis: CrmDashboardKpi[] = [
+  { label: "Proposal open rate", value: "88%" },
+  { label: "Median time to first open", value: "3.2 h" },
+  { label: "Itinerary views per trip", value: "14" },
+  { label: "Pre-trip brief read", value: "91%" },
+  { label: "Post-trip score", value: "9.6 / 10" },
+];
+
+export const crmEngagementFunnelStages = [
+  { count: 184, label: "Proposal opened", value: "184 Q3" },
+  { count: 166, label: "Itinerary viewed in Travefy", value: "166 Q3" },
+  { count: 137, label: "Deposit paid", value: "137 Q3" },
+  { count: 126, label: "Pre-trip brief read", value: "126 Q3" },
+  { count: 92, label: "Post-trip survey answered", value: "92 Q3" },
+];
+
+export const crmEngagementSignals: CrmEngagementSignal[] = [
+  {
+    client: "The Harcourt family",
+    hubspotProperty: "engagement_score",
+    id: "signal-harcourt-proposal",
+    signal: "Opened proposal 4 times",
+    source: "Proposal Engine",
+    status: "Triggers follow-up",
+    time: "09:42",
+  },
+  {
+    client: "M. Okafor",
+    hubspotProperty: "last_itinerary_view",
+    id: "signal-okafor-day-six",
+    signal: "Viewed Day 6 in Travefy",
+    source: "Travefy",
+    status: "Written back",
+    time: "09:18",
+  },
+  {
+    client: "The Watanabe family",
+    hubspotProperty: "pre_trip_brief_read",
+    id: "signal-watanabe-brief",
+    signal: "Read pre-trip brief",
+    source: "Pre-trip Brief agent",
+    status: "Written back",
+    time: "08:57",
+  },
+  {
+    client: "H. Laurent",
+    hubspotProperty: "proposal_reopen_count",
+    id: "signal-laurent-reopen",
+    signal: "Reopened Burgundy rail pricing",
+    source: "Proposal Engine",
+    status: "Triggers follow-up",
+    time: "08:31",
+  },
+  {
+    client: "S. El-Amin",
+    hubspotProperty: "last_itinerary_view",
+    id: "signal-el-amin-travefy",
+    signal: "Shared Sicily villa day with spouse",
+    source: "Travefy",
+    status: "Written back",
+    time: "08:04",
+  },
+  {
+    client: "L. Morandi",
+    hubspotProperty: "deposit_intent",
+    id: "signal-morandi-deposit",
+    signal: "Opened deposit terms",
+    source: "Proposal Engine",
+    status: "Written back",
+    time: "07:46",
+  },
+  {
+    client: "The Bellamy family",
+    hubspotProperty: "nps_last_trip",
+    id: "signal-bellamy-survey",
+    signal: "Post-trip score 10 · The Lebombo sunrise",
+    source: "Survey",
+    status: "Written back",
+    time: "07:21",
+  },
+];
+
+export const crmEngagementSignalPool: CrmEngagementSignal[] = [
+  {
+    client: "V. Rao",
+    hubspotProperty: "last_itinerary_view",
+    id: "live-signal-rao-kyoto",
+    signal: "Viewed Aman Kyoto sequence",
+    source: "Travefy",
+    status: "Written back",
+    time: "Now",
+  },
+  {
+    client: "The Kenner family",
+    hubspotProperty: "engagement_score",
+    id: "live-signal-kenner-yacht",
+    signal: "Returned to yacht hold page",
+    source: "Proposal Engine",
+    status: "Triggers follow-up",
+    time: "Now",
+  },
+  {
+    client: "R. Whitcomb",
+    hubspotProperty: "pre_trip_brief_read",
+    id: "live-signal-whitcomb-brief",
+    signal: "Read weather and packing brief",
+    source: "Pre-trip Brief agent",
+    status: "Written back",
+    time: "Now",
+  },
+  {
+    client: "The Bianchi family",
+    hubspotProperty: "last_itinerary_view",
+    id: "live-signal-bianchi-coastline",
+    signal: "Viewed Capri arrival day",
+    source: "Travefy",
+    status: "Written back",
+    time: "Now",
+  },
+  {
+    client: "C. Vale",
+    hubspotProperty: "nps_last_trip",
+    id: "live-signal-vale-survey",
+    signal: "Post-trip score 9 · The private guide",
+    source: "Survey",
+    status: "Written back",
+    time: "Now",
   },
 ];
 

@@ -122,6 +122,27 @@
   text-wrap: pretty;
 }
 
+.app-dash-crm-forecast,
+.app-dash-crm-engagement {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.app-dash-crm-forecast-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.app-dash-crm-engagement-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
 .app-dash-crm-two-column {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -152,6 +173,201 @@
 
 .app-dash-crm-repeat-chart {
   margin-top: var(--space-5);
+}
+
+.app-dash-crm-bullet-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-4);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.app-dash-crm-bullet-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.app-dash-crm-bullet-legend__key {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 8px;
+}
+
+.app-dash-crm-bullet-legend__key--booked,
+.app-dash-crm-bullet-legend__key--commit {
+  background: var(--ink);
+}
+
+.app-dash-crm-bullet-legend__key--commit {
+  opacity: 0.42;
+}
+
+.app-dash-crm-bullet-legend__key--best {
+  border-top: var(--border-hairline);
+  transform: translateY(4px);
+}
+
+.app-dash-crm-bullet-legend__key--target {
+  width: 1px;
+  background: var(--gold);
+}
+
+.app-dash-crm-bullet-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-dash-crm-bullet-row {
+  display: grid;
+  grid-template-columns: minmax(72px, 0.22fr) minmax(0, 1fr);
+  gap: var(--space-3) var(--space-4);
+  align-items: center;
+  border-top: var(--border-hairline);
+  padding: var(--space-4) 0;
+}
+
+.app-dash-crm-bullet-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.app-dash-crm-bullet-row--total {
+  color: var(--ink);
+}
+
+.app-dash-crm-bullet-row__label {
+  color: var(--ink);
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+}
+
+.app-dash-crm-bullet {
+  position: relative;
+  min-width: 0;
+  height: 18px;
+}
+
+.app-dash-crm-bullet__track,
+.app-dash-crm-bullet__commit,
+.app-dash-crm-bullet__booked,
+.app-dash-crm-bullet__target {
+  position: absolute;
+  left: 0;
+}
+
+.app-dash-crm-bullet__track {
+  top: 50%;
+  width: 100%;
+  border-top: var(--border-hairline);
+}
+
+.app-dash-crm-bullet__commit {
+  top: calc(50% - 2px);
+  height: 4px;
+  background: var(--ink);
+  opacity: 0.42;
+}
+
+.app-dash-crm-bullet__booked {
+  top: calc(50% - 3px);
+  height: 6px;
+  background: var(--ink);
+}
+
+.app-dash-crm-bullet__target {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gold);
+  transform: translateX(-50%);
+}
+
+.app-dash-crm-bullet-values {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+}
+
+.app-dash-crm-bullet-values__item {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.app-dash-crm-bullet-values dt,
+.app-dash-crm-bullet-values dd {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.app-dash-crm-bullet-values dt {
+  color: var(--muted);
+  font-size: var(--size-eyebrow);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+}
+
+.app-dash-crm-bullet-values dd {
+  color: var(--ink);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-dash-crm-move-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-dash-crm-move-list__item {
+  border-top: var(--border-hairline);
+  padding: var(--space-3) 0;
+  color: var(--ink);
+  font-size: var(--size-small);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.app-dash-crm-move-list__item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.app-dash-crm-section-caption {
+  max-width: var(--width-text);
+  margin: 0;
+  border-top: var(--border-hairline);
+  padding-top: var(--space-3);
+  color: var(--muted);
+  font-size: var(--size-small);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.app-dash-crm-signals-panel {
+  min-width: 0;
+}
+
+.app-dash-crm-property {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 
 .app-dash-crm-quiet-list {
@@ -217,7 +433,37 @@
 
 @media (max-width: 899px) {
   .app-dash-ov-brief-grid,
+  .app-dash-crm-forecast-grid,
+  .app-dash-crm-engagement-grid,
   .app-dash-crm-two-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app-dash-crm-forecast .app-dash-kpi-row,
+  .app-dash-crm-engagement .app-dash-kpi-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .app-dash-crm-forecast .app-dash-kpi-row > *,
+  .app-dash-crm-engagement .app-dash-kpi-row > * {
+    border-top: var(--border-hairline);
+    border-left: 0;
+    padding: var(--space-4) 0 0;
+  }
+
+  .app-dash-crm-forecast .app-dash-kpi-row > *:first-child,
+  .app-dash-crm-engagement .app-dash-kpi-row > *:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .app-dash-crm-bullet-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .app-dash-crm-bullet-values {
     grid-template-columns: minmax(0, 1fr);
   }
 

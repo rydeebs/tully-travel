@@ -5,7 +5,7 @@ import { Kpi } from "../Kpi";
 import { KpiRow } from "../KpiRow";
 import { PageHeader } from "../PageHeader";
 import { Section } from "../Section";
-import { StatusTag } from "../Table";
+import { StatusTag, Table, type TableColumn } from "../Table";
 import { LineChart } from "../charts";
 import {
   overviewBookedRevenueSpark,
@@ -19,7 +19,9 @@ import {
   overviewHumanItems,
   overviewMarginSpark,
   overviewPipelineSpark,
+  overviewSystemMetrics,
   type OverviewFeedItem,
+  type OverviewSystemMetric,
 } from "../data/overview";
 import { money, pct } from "../format";
 import type { TabId } from "../tabs";
@@ -27,6 +29,33 @@ import { jitter, useLiveTicker } from "../useLiveTicker";
 
 const BOOKED_REVENUE_THIS_WEEK = 1_840_000;
 const AGENT_HOURS_SAVED = 146;
+
+const systemMetricColumns: Array<TableColumn<OverviewSystemMetric>> = [
+  {
+    header: "System",
+    key: "system",
+    render: (row) => (
+      <div className="app-dash-ov-system-cell">
+        <span className="app-dash-ov-system-cell__name">{row.system}</span>
+        <span className="app-dash-ov-system-cell__description">{row.description}</span>
+      </div>
+    ),
+    width: "24%",
+  },
+  { header: "Owner", key: "owner", width: "14%" },
+  { header: "Metric", key: "metric", width: "18%" },
+  { header: "Before", key: "before", width: "11%" },
+  { header: "Now", key: "now", width: "13%" },
+  { header: "Change", key: "change", width: "10%" },
+  {
+    header: "Status",
+    key: "status",
+    render: (row) => (
+      <StatusTag tone={row.status === "Target met" ? "gold" : "muted"}>{row.status}</StatusTag>
+    ),
+    width: "10%",
+  },
+];
 
 export function OverviewTab({ onNavigate }: { onNavigate: (tab: TabId) => void }) {
   const tick = useLiveTicker(6000);
@@ -97,6 +126,15 @@ export function OverviewTab({ onNavigate }: { onNavigate: (tab: TabId) => void }
           />
         </KpiRow>
       </section>
+
+      <Section title="Every system, its metric">
+        <p className="app-dash-ov-system-lead">
+          Each system earns its place against one number. Before is the manual baseline; now is this week.
+        </p>
+        <div className="app-dash-ov-system-table">
+          <Table columns={systemMetricColumns} keyField="id" rows={overviewSystemMetrics} />
+        </div>
+      </Section>
 
       <Section title="Bookings, actual and forecast">
         <LineChart
